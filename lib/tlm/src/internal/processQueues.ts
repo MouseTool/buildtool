@@ -5,6 +5,7 @@ import {
   TickStats,
   TickTypes,
 } from "../process";
+import { IProcessQueue } from "./queueOps";
 
 export const options: ProcessQueueOptions = {
   cycleDuration: 4000,
@@ -13,93 +14,25 @@ export const options: ProcessQueueOptions = {
   rationLevelCritical: 90,
 };
 
-/**
- * Provides information on the current tick.
- */
-export const tickStats: TickStats = {};
+// Queue options
+let cycleDuration = 4000;
+let runtimeLimit = 60;
+let rationLevelMedium = 60;
+let rationLevelCritical = 90;
 
-type QueueItem = {
-  callback: Function;
-  args: any[];
-  argCount: number;
-};
+// Tick stats
+let currentTickType: TickTypes;
+let currentPhase: PhaseTypes;
+let currentQueuedAt: number;
 
-type TimerQueueItem = QueueItem;
-// & {
-//   /**
-//    * The minimum time in MS to execute the callback
-//    */
-//   minTime: number;
-// };
-const timerQueue = new DoublyLinkedList<TimerQueueItem>();
+type QueuableTypes = PhaseTypes | "postPhase";
 
-type EventQueueItem = QueueItem & {
-  /**
-   * The original timestamp in MS in which the event was fired, causing the callback to be
-   * queued.
-   */
-  queueTime: number;
-};
-
-const eventQueue = new DoublyLinkedList<EventQueueItem>();
-const deferredEventQueue = new DoublyLinkedList<EventQueueItem>();
-
-type CloseQueueItem = QueueItem;
-const closeQueue = new DoublyLinkedList<CloseQueueItem>();
-
-type PostPhaseQueueItem = QueueItem;
-const postPhaseQueue = new DoublyLinkedList<PostPhaseQueueItem>();
-
-type QueuableTypes = PhaseTypes| "postPhase";
-
-const queueOps: Record<
-  QueuableTypes,
-  {
-    queue: (item: QueueItem) => void;
-    drain: () => void;
-  }
-> = {
-  timers: {
-    queue: function (item: QueueItem): void {
-      timerQueue.pushBack(item);
-    },
-    drain: function (): void {
-      throw new Error("Function not implemented.");
-    },
-  },
-  events: {
-    queue: function (item: QueueItem): void {
-      (item as EventQueueItem).queueTime = os.time();
-      eventQueue.pushBack(item as EventQueueItem);
-    },
-    drain: function (): void {
-      throw new Error("Function not implemented.");
-    },
-  },
-  close: {
-    queue: function (item: QueueItem): void {
-      closeQueue.pushBack(item);
-    },
-    drain: function (): void {
-      throw new Error("Function not implemented.");
-    },
-  },
-  postPhase: {
-    queue: function (item: QueueItem): void {
-      postPhaseQueue.pushBack(item);
-    },
-    drain: function (): void {
-
-    },
-  },
-  deferredEvents: {
-    queue: function (item: QueueItem): void {
-      throw new Error("Function not implemented.");
-    },
-    drain: function (): void {
-      throw new Error("Function not implemented.");
-    }
-  }
+const queueOps: Record<QueuableTypes, IProcessQueue> = {
+  timers: undefined,
+  deferredEvents: undefined,
+  events: undefined,
+  close: undefined,
+  postPhase: undefined,
 };
 
 /**
@@ -107,19 +40,29 @@ const queueOps: Record<
  * you're doing!
  */
 export function queue(type: QueuableTypes, callback: Function, ...args: any) {
-  const item = { callback, args, argCount: select("#", ...args) } as QueueItem;
-
-  if (queueOps[type]) {
-    closeQueue.pushBack(item);
+  const queueOp = queueOps[type];
+  if (queueOp) {
+    queueOp.enqueue(callback, ...args);
   } else {
     error(`Invalid queue type ${type}!`);
   }
 }
 
-export function fireTick(tickType: TickTypes) {
-  tickStats.currentTick = tickType;
+const tickQueueSeq: Record<TickTypes, QueuableTypes[]> = {
+  loop: [],
+  event: [],
+  timer: [],
+};
 
-  if (tickType == "event") {
+export function fireTick(tickType: TickTypes) {
+  const seq = tickQueueSeq[tickType];
+  if (!seq) {
+    error(`Invalid tick type ${tickType}!`);
+  }
+
+  currentTickType = tickType;
+  for (const qType of seq) {
+    queueOps[qType].drain();
   }
 }
 
@@ -128,4 +71,37 @@ export function fireTick(tickType: TickTypes) {
  */
 export function runtimeUsage() {
   return os.time();
+}
+
+/**
+ * Provides information on the state of the current event loop.
+ */
+export function tickStats() {
+  return {
+    currentPhase,
+    currentQueuedAt,
+    currentTickType: currentTickType,
+  } as TickStats;
+}
+
+/**
+ * Sets or gets the current process queue options.
+ */
+export function processQueueOpts(): ProcessQueueOptions;
+export function processQueueOpts(options: Partial<ProcessQueueOptions>): void;
+export function processQueueOpts(options?: Partial<ProcessQueueOptions>) {
+  if (!options) {
+    // Getter
+    return {
+      cycleDuration,
+      rationLevelCritical,
+      rationLevelMedium,
+      runtimeLimit,
+    } as ProcessQueueOptions;
+  }
+
+  cycleDuration = options.cycleDuration ?? cycleDuration;
+  rationLevelCritical = options.rationLevelCritical ?? rationLevelCritical;
+  rationLevelMedium = options.rationLevelMedium ?? rationLevelMedium;
+  runtimeLimit = options.runtimeLimit ?? runtimeLimit;
 }

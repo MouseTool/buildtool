@@ -1,12 +1,13 @@
 import { tickStats, queue, runtimeUsage } from "./internal/processQueues";
+import { TlmPromise } from "./promise";
 
 /*
 Acknowledegment: A bulk of the architecture and documentation was borrowed from NodeJS.
 
 **Major process phases in a tick**
 1. timers
-2. deferred events
-  - Event callbacks that were deferred to the next loop iteration(s)
+2. deferrables
+  - Callbacks that were deferred to the next loop iteration(s)
 3. events
 4. close
   - Callbacks executed in the closing of a tick. This can be used to destroy objects, dereference
@@ -22,7 +23,7 @@ drain at all). The following documents the default behavior, which may be config
 **What happens during "loop" type tick**
 A loop tick can be fired due to a TFM `eventLoop` callback. It will drain queues in the following
 order:
-1. deferred events
+1. deferrables
 2. close
 
 **What happens during "event" type tick**
@@ -45,7 +46,7 @@ export type PhaseTypes = "timers" | "deferredEvents" | "events" | "close";
  * Provides information on the current tick.
  */
 export interface TickStats {
-  currentTick?: TickTypes;
+  currentTickType?: TickTypes;
   currentPhase?: PhaseTypes;
   /**
    * The time in milliseconds that the event callback was originally queued at.
@@ -76,7 +77,7 @@ export type ProcessQueueOptions = {
    * During this stage, all ticks will be ignored.
    */
   rationLevelCritical: number;
-}
+};
 
 /**
  * Queues `callback` to the "post phase queue" after the current phase ends. This queue is drained
@@ -85,10 +86,32 @@ export type ProcessQueueOptions = {
  * It is similar to Node's `process.nextTick`, but has been named differently to better reflect its
  * use.
  */
-export function postPhase(callback: Function, ...args: any) {
+export function postPhase(callback: Function, ...args: any[]) {
   queue("postPhase", callback, ...args);
 }
 
-export const launchTime = os.time()
+/**
+ * Re-promisifies a TSTL `Promise` function so that it will conform to the rules of the TLM event
+ * loop, and only attempts to execute when a resolve handler exists.
+ */
+export function reasync<TArgs extends any[], TReturn>(promiseFnc: (...args: TArgs) => Promise<TReturn>) {
+  return (...args: TArgs) => {
+    return TlmPromise.wrap(promiseFnc(...args))
+  }
+}
+
+/**
+ * A deferrable queues a callback differently depending on the ration pressure.
+ *
+ * - `rationPressure == LOW`: post-phase queue
+ * - `rationPressure >= MEDIUM`: deferrables queue
+ *
+ * A deferrable function should therefore be written in anticipation that it will not execute soon.
+ */
+export function defer() {
+
+}
+
+export const launchTime = os.time();
 
 export { tickStats, runtimeUsage };

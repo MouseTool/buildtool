@@ -125,7 +125,7 @@ tapable@^2.2.0:
   resolved "https://registry.npmjs.org/tapable/-/tapable-2.2.1.tgz"
   integrity sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==
 
-"tfm-types@link:.\\lib\\tfm-types\\":
+"tfm-types@link:lib/tfm-types":
   version "0.0.0"
   uid ""
 
@@ -148,10 +148,10 @@ ts-node@^10.7.0:
     v8-compile-cache-lib "^3.0.0"
     yn "3.1.1"
 
-typescript-to-lua@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.npmjs.org/typescript-to-lua/-/typescript-to-lua-1.4.2.tgz"
-  integrity sha512-w+vEut1ZBk5YNT/Lh75+RnOICkQx5Mwsm/1Pskb03VraxKU7zSq/iBrFAUGQiKPL0YsrRd8DiFn/5qJyV4183A==
+typescript-to-lua@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/typescript-to-lua/-/typescript-to-lua-1.4.3.tgz#251ae4bce5ab6015a6d9b0a9c2f1ab02fb576308"
+  integrity sha512-oGJO1BqXKSxdfwavfOzthelxaQVAc7ykJ4Z/BF96nAWz35nmuLyv9FOSS132TgzLmV02859ndMuTYZtiVnN6jQ==
   dependencies:
     enhanced-resolve "^5.8.2"
     resolve "^1.15.1"
