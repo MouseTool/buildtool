@@ -1,0 +1,16 @@
+{
+  "name": "tfm-types",
+  "version": "2.1.0-dev.0",
+  "description": "Environment definition for Transformice. Supports Lua Language Server and TypeScriptToLua.",
+  "main": "dummy.js",
+  "types": "tstlLib/index.d.ts",
+  "scripts": {
+    "generate": "ts-node generate/main.ts"
+  },
+  "author": "Cassolette",
+  "license": "MIT",
+  "devDependencies": {
+    "lua-types": "^2.11.0",
+    "ts-node": "^10.7.0"
+  }
+}
