@@ -14,6 +14,10 @@
   dependencies:
     "@cspotcode/source-map-consumer" "0.8.0"
 
+"@mousetool/tstl-tlm@link:lib/tlm":
+  version "0.0.0"
+  uid ""
+
 "@tsconfig/node10@^1.0.7":
   version "1.0.8"
   resolved "https://registry.npmjs.org/@tsconfig/node10/-/node10-1.0.8.tgz"
@@ -125,7 +129,7 @@ tapable@^2.2.0:
   resolved "https://registry.npmjs.org/tapable/-/tapable-2.2.1.tgz"
   integrity sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==
 
-"tfm-types@link:lib/tfm-types":
+"tfm-tstl@link:lib/tfm-types/tstl":
   version "0.0.0"
   uid ""
 

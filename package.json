@@ -14,9 +14,8 @@
   "devDependencies": {
     "ts-node": "^10.7.0",
     "typescript": "^4.6.3",
-    "typescript-to-lua": "^1.4.3"
-  },
-  "dependencies": {
-    "tfm-types": "link:.\\lib\\tfm-types\\"
+    "typescript-to-lua": "^1.4.3",
+    "tfm-tstl": "link:lib/tfm-types/tstl/",
+    "@mousetool/tstl-tlm": "link:lib/tlm"
   }
 }

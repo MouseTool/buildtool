@@ -90,37 +90,43 @@ export default class DoublyLinkedList<T> {
   }
 
   /**
+   * Finds the node at `position`. No boundary checks.
+   */
+  protected findNth(position: number) {
+    // TODO: Can reduce loop time if position = size using position < size/2 ?
+    let node = this._front;
+    //for (let i = 1; i <= position; i++) {
+    for (const _ of $range(1, position)) {
+      node = node.next;
+    }
+    return node;
+  }
+
+  /**
    * Inserts an element at the specified position.
    */
   insertAt(position: number, value: T): boolean {
     if (position < 0 || position > this.size) return false;
-
-    // TODO: Can reduce loop time if position = size using position < size/2 ?
-    let beforeNode = this._front?.prev;
-    for (let i = 0; i < position; i++) {
-      beforeNode = beforeNode.next;
+    if (position === 0) {
+      this.pushFront(value);
+      return true;
     }
-    const afterNode = beforeNode?.next ?? this._front;
+    if (position === this.size) {
+      this.pushBack(value);
+      return true;
+    }
 
+    const afterNode = this.findNth(position);
+    const beforeNode = afterNode.prev;
     const node = {
       value,
       prev: beforeNode,
       next: afterNode,
     } as DoublyLinkedListNode<T>;
 
-    if (!this._back) {
-      this._back = node;
-    }
-    if (!this._front) {
-      this._front = node;
-    }
-
-    if (beforeNode) {
-      beforeNode.next = node;
-    }
-    if (afterNode) {
-      afterNode.prev = node;
-    }
+    // Both will not be null as `position` is never at one of the far ends here.
+    beforeNode.next = node;
+    afterNode.prev = node;
 
     this._size++;
     return true;
@@ -131,17 +137,16 @@ export default class DoublyLinkedList<T> {
    */
   popAt(position: number): T | undefined {
     if (position < 0 || position >= this.size) return;
+    if (position === 0) return this.popFront();
+    if (position === this.size - 1) return this.popBack();
 
-    // TODO: Can reduce loop time if position = size using position < size/2 ?
-    let node = this._front;
-    for (let i = 1; i <= position; i++) {
-      node = node.next;
-    }
+    const node = this.findNth(position);
     const beforeNode = node.prev;
     const afterNode = node.next;
 
-    if (beforeNode) beforeNode.next = afterNode;
-    if (afterNode) afterNode.prev = beforeNode;
+    // Both will not be null as `position` is never at one of the far ends here.
+    beforeNode.next = afterNode;
+    afterNode.prev = beforeNode;
 
     this._size--;
     return node.value;
@@ -166,12 +171,15 @@ export default class DoublyLinkedList<T> {
    * Removes and retrieves the last element.
    */
   popBack(): T | undefined {
-    if (!this._back) return;
+    const node = this._back
+    if (!node) return;
 
-    const value = this._back.value;
-    this._back = this._back.prev;
-    if (this._back) {
-      this._back.next = null;
+    const value = node.value;
+    const replacementNode = node.prev;
+    this._back = replacementNode;
+
+    if (replacementNode) {
+      replacementNode.next = null;
     } else {
       this._front = null;
     }
@@ -184,12 +192,15 @@ export default class DoublyLinkedList<T> {
    * Removes and retrieves the first element.
    */
   popFront(): T | undefined {
-    if (!this._front) return;
+    const node = this._front;
+    if (!node) return;
 
-    const value = this._front.value;
-    this._front = this._front.next;
-    if (this._front) {
-      this._front.prev = null;
+    const value = node.value;
+    const replacementNode = node.next;
+    this._front = replacementNode;
+
+    if (replacementNode) {
+      replacementNode.prev = null;
     } else {
       this._back = null;
     }

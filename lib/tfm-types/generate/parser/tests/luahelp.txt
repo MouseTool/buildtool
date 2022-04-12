@@ -1,0 +1,1046 @@
+Version 0.28
+
+Lua tree
+
+_G
+assert
+bit32
+  arshift
+  band
+  bnot
+  bor
+  btest
+  bxor
+  extract
+  lrotate
+  lshift
+  replace
+  rrotate
+  rshift
+coroutine
+  create
+  resume
+  running
+  status
+  wrap
+  yield
+debug
+  disableEventLog
+  disableTimerLog
+  getCurrentThreadName
+  traceback
+error
+getmetatable
+ipairs
+math
+  abs
+  acos
+  asin
+  atan
+  atan2
+  ceil
+  cos
+  cosh
+  deg
+  exp
+  floor
+  fmod
+  frexp
+  huge
+  ldexp
+  log
+  max
+  min
+  modf
+  pi
+  pow
+  rad
+  random
+  randomseed
+  sin
+  sinh
+  sqrt
+  tan
+  tanh
+next
+os
+  date
+  difftime
+  time
+pairs
+pcall
+print
+rawequal
+rawget
+rawlen
+rawset
+select
+setmetatable
+string
+  byte
+  char
+  dump
+  find
+  format
+  gmatch
+  gsub
+  len
+  lower
+  match
+  rep
+  reverse
+  sub
+  upper
+system
+  bindKeyboard
+  bindMouse
+  disableChatCommandDisplay
+  exit
+  giveEventGift
+  loadFile
+  loadPlayerData
+  luaEventLaunchInterval
+  newTimer
+  openEventShop
+  removeTimer
+  saveFile
+  savePlayerData
+  setLuaEventBanner
+table
+  concat
+  foreach
+  foreachi
+  insert
+  pack
+  remove
+  sort
+  unpack
+tfm
+  enum
+    bonus
+      point : 0
+      speed : 1
+      death : 2
+      spring : 3
+      booster : 5
+      electricArc : 6
+    emote
+      dance : 0
+      laugh : 1
+      cry : 2
+      kiss : 3
+      angry : 4
+      clap : 5
+      sleep : 6
+      facepaw : 7
+      sit : 8
+      confetti : 9
+      flag : 10
+      marshmallow : 11
+      selfie : 12
+      highfive : 13
+      highfive_1 : 14
+      highfive_2 : 15
+      partyhorn : 16
+      hug : 17
+      hug_1 : 18
+      hug_2 : 19
+      jigglypuff : 20
+      kissing : 21
+      kissing_1 : 22
+      kissing_2 : 23
+      carnaval : 24
+      rockpaperscissors : 25
+      rockpaperscissors_1 : 26
+      rockpaperscissor_2 : 27
+    ground
+      wood : 0
+      ice : 1
+      trampoline : 2
+      lava : 3
+      chocolate : 4
+      earth : 5
+      grass : 6
+      sand : 7
+      cloud : 8
+      water : 9
+      stone : 10
+      snow : 11
+      rectangle : 12
+      circle : 13
+      invisible : 14
+      web : 15
+      yellowGrass : 17
+      pinkGrass : 18
+      acid : 19
+    particle
+      whiteGlitter : 0
+      blueGlitter : 1
+      orangeGlitter : 2
+      cloud : 3
+      dullWhiteGlitter : 4
+      heart : 5
+      bubble : 6
+      tealGlitter : 9
+      spirit : 10
+      yellowGlitter : 11
+      ghostSpirit : 12
+      redGlitter : 13
+      waterBubble : 14
+      plus1 : 15
+      plus10 : 16
+      plus12 : 17
+      plus14 : 18
+      plus16 : 19
+      meep : 20
+      redConfetti : 21
+      greenConfetti : 22
+      blueConfetti : 23
+      yellowConfetti : 24
+      diagonalRain : 25
+      curlyWind : 26
+      wind : 27
+      rain : 28
+      star : 29
+      littleRedHeart : 30
+      littlePinkHeart : 31
+      daisy : 32
+      bell : 33
+      egg : 34
+      projection : 35
+      mouseTeleportation : 36
+      shamanTeleportation : 37
+      lollipopConfetti : 38
+      yellowCandyConfetti : 39
+      pinkCandyConfetti : 40
+    shamanObject
+      arrow : 0
+      littleBox : 1
+      box : 2
+      littleBoard : 3
+      board : 4
+      ball : 6
+      trampoline : 7
+      anvil : 10
+      cannon : 17
+      bomb : 23
+      orangePortal : 26
+      blueBalloon : 28
+      redBalloon : 29
+      greenBalloon : 30
+      yellowBalloon : 31
+      rune : 32
+      chicken : 33
+      snowBall : 34
+      cupidonArrow : 35
+      apple : 39
+      sheep : 40
+      littleBoardIce : 45
+      littleBoardChocolate : 46
+      iceCube : 54
+      cloud : 57
+      bubble : 59
+      tinyBoard : 60
+      companionCube : 61
+      stableRune : 62
+      balloonFish : 65
+      longBoard : 67
+      triangle : 68
+      sBoard : 69
+      paperPlane : 80
+      rock : 85
+      pumpkinBall : 89
+      tombstone : 90
+      paperBall : 95
+  exec
+    addBonus
+    addConjuration
+    addImage
+    addJoint
+    addNPC
+    addPhysicObject
+    addShamanObject
+    attachBalloon
+    bindKeyboard
+    changePlayerSize
+    chatMessage
+    disableAfkDeath
+    disableAllShamanSkills
+    disableAutoNewGame
+    disableAutoScore
+    disableAutoShaman
+    disableAutoTimeLeft
+    disableDebugCommand
+    disableMinimalistMode
+    disableMortCommand
+    disablePhysicalConsumables
+    disablePrespawnPreview
+    disableWatchCommand
+    displayParticle
+    explosion
+    freezePlayer
+    getPlayerSync
+    giveCheese
+    giveConsumables
+    giveMeep
+    giveTransformations
+    killPlayer
+    linkMice
+    lowerSyncDelay
+    moveObject
+    movePlayer
+    newGame
+    playEmote
+    playerVictory
+    removeBonus
+    removeCheese
+    removeImage
+    removeJoint
+    removeObject
+    removePhysicObject
+    respawnPlayer
+    setAieMode
+    setAutoMapFlipMode
+    setGameTime
+    setNameColor
+    setPlayerGravityScale
+    setPlayerNightMode
+    setPlayerScore
+    setPlayerSync
+    setRoomMaxPlayers
+    setRoomPassword
+    setShaman
+    setShamanMode
+    setUIMapName
+    setUIShamanName
+    setVampirePlayer
+    setWorldGravity
+    snow
+  get
+    misc
+      apiVersion : 0.28
+      transformiceVersion : 7.92
+    room
+      community : -
+      currentMap : 0
+      isTribeHouse : false
+      maxPlayers : 50
+      mirroredMap : false
+      name : -
+      objectList
+        1
+          angle : 0
+          baseType : 2
+          colors
+            1
+            2
+            3
+          ghost : false
+          id : 1
+          type : 203
+          vx : 0
+          vy : 0
+          x : 400
+          y : 200
+      passwordProtected : false
+      playerList
+        Tigrounette
+          cheeses : 0
+          community : en
+          gender : 0
+          hasCheese : false
+          id : 0
+          inHardMode : 0
+          isDead : true
+          isFacingRight : true
+          isInvoking : false
+          isJumping : false
+          isShaman : false
+          isVampire : false
+          language : int
+          look : 1;0,0,0,0,0,0,0,0,0
+          movingLeft : false
+          movingRight : false
+          playerName : Tigrounette
+          registrationDate : 1648132114020
+          score : 0
+          shamanMode : 0
+          spouseId : 1
+          spouseName : Pikashu
+          title : 0
+          tribeId : 1234
+          tribeName : Kikoo
+          vx : 0
+          vy : 0
+          x : 0
+          y : 0
+tonumber
+tostring
+type
+ui
+  addPopup
+  addTextArea
+  removeTextArea
+  setBackgroundColor
+  setMapName
+  setShamanName
+  showColorPicker
+  updateTextArea
+xpcall
+
+
+Events
+
+eventChatCommand(playerName, command)
+This event is triggered when a player uses a chat command (a message beginning with « ! »).
+  playerName (String) the player who sent the command
+  command (String) the message (without the initial « ! »)
+
+eventChatMessage(playerName, message)
+This event is triggered when a player talks in the room chat.
+  playerName (String) the player who sent the message
+  message (String) the message
+
+eventEmotePlayed(playerName, emoteType, emoteParam)
+This event is triggered when the player does an emote.
+  playerName (String) the player who did the emote
+  emoteType (Int) the type of emote played
+  emoteParam (String) the parameter used with the emote (only applies to the flag one)
+
+eventFileLoaded(fileNumber, fileData)
+This event is triggered when a file gets fully loaded.
+  fileNumber (String) the file identifier
+  fileData (String) the file data
+
+eventFileSaved(fileNumber)
+This event is triggered when a file gets saved.
+  fileNumber (String) the name of the file
+
+eventKeyboard(playerName, keyCode, down, xPlayerPosition, yPlayerPosition)
+This event is triggered when a player presses a key.
+  playerName (String) the player who typed the key
+  keyCode (Int) the code of the typed key
+  down (Boolean) whether it was the press event, or the release one
+  xPlayerPosition (Int) the horizontal coordinate of the player when he or she typed the key
+  yPlayerPosition (Int) the vertical coordinate of the player when he or she typed the key
+
+eventMouse(playerName, xMousePosition, yMousePosition)
+This event is triggered when a player perfoms a mouse click.
+  playerName (String) the player who made the click
+  xMousePosition (Int) the horizontal coordinate of the mouse click
+  yMousePosition (Int) the vertical coordinate of the mouse click
+
+eventLoop(elapsedTime, remainingTime)
+This event occurs every 500 milliseconds.
+  elapsedTime (Int) the time in milliseconds elapsed since the beginning of the round
+  remainingTime (Int) the time in milliseconds remaining before the next round
+
+eventNewGame()
+This event is triggered when a new round begins.
+
+eventNewPlayer(playerName)
+This event is triggered when a new player joins the room.
+  playerName (String) the player who joined the room
+
+eventPlayerDataLoaded(playerName, playerData)
+This event is triggered when player data gets loaded.
+  playerName (String) the player whose data got loaded
+  playerData (String) the data about the player
+
+eventPlayerDied(playerName)
+This event is triggered when a player dies.
+  playerName (String) the player who died
+
+eventPlayerGetCheese(playerName)
+This event is triggered when a player gets the cheese.
+  playerName (String) the player who got the cheese
+
+eventPlayerBonusGrabbed(playerName, bonusId)
+This event is triggered when a player grab a defilante bonus.
+  playerName (String) The player who grabbed the bonus.
+  bonusId (Int) Bonus identifier.
+
+eventPlayerLeft(playerName)
+This event is triggered when a player leaves the room.
+  playerName (String) the player who left the room
+
+eventPlayerVampire(playerName)
+This event is triggered when a player turns into a vampire.
+  playerName (String) the player who turned into a vampire
+
+eventPlayerWon(playerName, timeElapsed, timeElapsedSinceRespawn)
+This event triggers when a player enters the hole.
+  playerName (String) the player who entered the hole
+  timeElapsed (Int) the time in milliseconds elapsed since the beginning of the round
+  timeElapsedSinceRespawn (Int) the time in milliseconds elapsed since the last respawn
+
+eventPlayerRespawn(playerName)
+This event is triggered when a player respawns.
+  playerName (String) the player who respawned
+
+eventPlayerMeep(playerName, xPosition, yPosition)
+This event is triggered when a player meeps.
+  playerName (String) the player who meeped
+  xPosition (Int) the horizontal coordinate of the player when they meeped
+  yPosition (Int) the vertical coordinate of the player when they meeped
+
+eventPopupAnswer(popupId, playerName, answer)
+This event is triggered when a player answers a popup (only type 1 and 2 popups).
+  popupId (Int) the popup identifier
+  playerName (String) the player who answered the popup
+  answer (String) the player's answer
+    - yes or no for a type 1 popup
+    - any string for a type 2 poup
+
+eventSummoningStart(playerName, objectType, xPosition, yPosition, angle)
+This event is triggered when a player starts summoning a shaman object.
+  playerName (String) the player who started summoning
+  objectType (Int) the kind of shaman object being summoned
+  xPosition (Int) the horizontal coordinate of the summoning point
+  yPosition (Int) the vertical coordinate of the summoning point
+  angle (Int) the rotation angle of the object being summoned
+
+eventSummoningCancel(playerName)
+This event is triggered when a player cancels an object invocation.
+  playerName (String) the player who stopped summoning
+
+eventSummoningEnd(playerName, objectType, xPosition, yPosition, angle, objectDescription)
+This event triggers when a player has finished an invocation.
+  playerName (String) the player who summoned the object
+  objectType (Int) the kind of the object
+  xPosition (Int) the horizontal position of the summoned object
+  yPosition (Int) the vertical position of the summoned object
+  angle (Int) the rotation angle of the summoned object
+  objectDescription (Table) the object table description as it would appear in the room's objectList
+
+eventTextAreaCallback(textAreaId, playerName, eventName)
+This event is triggered when a player clicks a text event.
+Text event links are anchors tags links beginning with the "event:" string (e.g. : Click here).
+If the link eventName begins with '#clear,' the text area will be cleared, and the received eventName will be the text following the coma.
+  textAreaId (Int) the text area identifier
+  playerName (String) the player who clicked
+  eventName (String) the name of the clicked text event
+
+eventColorPicked(colorPickerId, playerName, color)
+This event is triggered when a player chooses a color with a color picker.
+  colorPickerId (Int) the color picker identifier
+  playerName (String) the player who picked a color
+  color (Int) the color picked (-1 if the player didn't picked one))
+
+eventContactListener(playerName, groundId, contactInfos)
+This event is triggered when a player hit a ground with a contact listener.
+  playerName (String) the player who hit the ground
+  groundId (Int) ground identifier
+  contactInfos (Table) Collision informations
+
+eventTalkToNPC(playerName, npcName)
+This event is triggered when a player click on a NPC.
+  playerName (String) The player who talk to the NPC
+  npcName (String) The NPC name
+
+Functions
+
+debug.disableEventLog(activate)
+Deactivates the events log.
+  activate (Boolean) whether it should be active (default true)
+
+debug.getCurrentThreadName()
+Get current lua thread name.
+
+system.bindKeyboard(playerName, keyCode, down, activate)
+Listens to the player's keyboard events.
+  playerName (String) the player you want to listen keyboard events from
+  keyCode (Int) the code of the key you want to listen
+    - to accurately listen for player movement (both arrows and wasd/zqsd keys), you can use 0 (left), 1 (up), 2 (right) or 3 (down)
+    - regular AS3 keycodes can be found on http://help.adobe.com/fr_FR/FlashPlatform/reference/actionscript/3/flash/ui/Keyboard.html
+  down (Boolean) whether it should listen for the press event, or the release one
+  activate (Boolean) whether it should be active (default true)
+
+system.bindMouse(playerName, active)
+Listens to a player's mouse events.
+  playerName (String) the player you want to listen mouse events from
+  active (Boolean) whether it should be active (default true)
+
+system.disableChatCommandDisplay(command, hide)
+Prevents a module command (commands starting with « ! ») to be displayed in the room. If the supplied command is nil, the parameter will apply to all the commands.
+  command (String) the command (without the initial « ! ») to hide (default nil)
+  hide (Boolean) whether the command should be hided (default true)
+
+system.exit()
+Deactivates the lua script running.
+
+system.giveEventGift(playerName, giftCode)
+Gives an event reward to the targeted player.
+  playerName (String) the player to give the gift to
+  giftCode (String) the gift identifier (given by an admin)
+
+system.loadFile(fileNumber)
+Requests the loading of a data file. The event eventFileLoaded is triggered when the file gets loaded.
+  fileNumber (Int) the identifier of the file to load (default 0)
+Returns (Boolean) whether the loading got started
+
+system.loadPlayerData(playerName)
+Requests the loading of the player's data for this module. The event eventPlayerDataLoaded is triggered when the player data gets loaded.
+  playerName (String) the player about whom you want to get the data
+Returns (Boolean) whether the loading got started
+
+system.luaEventLaunchInterval(interval, random)
+Set or get the timer interval between two events.
+  interval (Int) Timer interval in min (default 40 min), can't be less than 40 min.
+  random (Int) Random added  interval in min (default 20 min).
+
+system.newTimer(callback, time, loop, arg1, arg2, arg3, arg4)
+Creates a new timer to call a function after a delay, once or continuously.
+  callback (Function) The function to call
+  time (Int) the number of milliseconds that the function call should be delayed by
+  loop (Boolean) whether the function call should loop or happen only once (default false)
+  arg1 (Object) 1st argument of the callback function (default nil)
+  arg2 (Object) 2nd argument of the callback function (default nil)
+  arg3 (Object) 3rd argument of the callback function (default nil)
+  arg4 (Object) 4th argument of the callback function (default nil)
+Returns (Int) the new timer id
+
+system.openEventShop(eventName, playerName)
+Open the shop of the specified event.
+  eventName (String) Event name.
+  playerName (String) Target player name.
+
+system.removeTimer(timerId)
+Destroys a timer.
+  timerId (Int) the identifier of the timer to stop
+
+system.saveFile(data, fileNumber)
+Requests the saving of a data file (throttled to one per minute). The event eventFileSaved is triggered when the file get saved.
+  data (String) the data to store in the file
+  fileNumber (Int) the identifier (from 0 to 99) of the file to write the data in (default 0)
+Returns (Boolean) whether the saving got started
+
+system.savePlayerData(playerName, data)
+Saves module data about a player. Please note that this data is per player and per Lua dev, so take care not to overwrite data from another one of your modules.
+  playerName (String) the player about whom you want to save data
+  data (String) the player data to save
+
+system.setLuaEventBanner(bannerId)
+Set the login event banner.
+  bannerId (Int) Banner id.
+
+tfm.exec.addBonus(type, x, y, id, angle, visible, targetPlayer)
+Add defilante bonus.
+  type (Int) Bonus type (see tfm.enum.bonus) (default 1)
+  x (Int) X position. (default 0)
+  y (Int) Y position. (default 0)
+  id (Int) Identifier. (default 0)
+  angle (Int) Angle (deg). (default 0)
+  visible (Boolean) Make the bonus visible or not. (default true)
+  targetPlayer (String) Send only to this specific player. (default nil)
+
+tfm.exec.addConjuration(xPosition, yPosition, duration)
+Adds conjuration to the map. Note: Grid coordinate are regular coordinate divided by 10 (as conjuration is a 10x10 pixel square).
+  xPosition (Int) the horizontal grid coordinate of the conjuration
+  yPosition (Int) the vertical grid coordinate of the conjuration
+  duration (Int) the duration of the conjuration in milliseconds (default 10000)
+
+tfm.exec.addImage(imageId, target, xPosition, yPosition, targetPlayer, scaleX, scaleY, rotation, alpha, anchorX, anchorY)
+Displays an image on the map.
+  imageId (String) the image identifier
+  target (String) the game element to attach the image to
+    - #mobileId
+    - =mobileId (keep current sprite)
+    - $playerName (on the mouse sprite)
+    - %playerName (with the mouse sprite removed)
+    - ?backgroundLayerDepth
+    - _groundLayerDepth
+    - !foregroundLayerDepth
+    - &fixedLayerDepthBeforeLuaInterfaces
+    - :fixedLayerDepthBehindLuaInterfaces
+    - ~fixedLayerDepthWithLuaInterfaces
+    - +physicObjectId
+  xPosition (Int) the horizontal offset of the top-left corner of the image (0 being the middle of the game element) (default 0)
+  yPosition (Int) the vertical offset of the top-left corner of the image (0 being the middle of the game element) (default 0)
+  targetPlayer (String) the player who will see the image (if nil, applies to all players) (default nil)
+  scaleX (Number) Image scale X (default 1)
+  scaleY (Number) Image scale Y (default 1)
+  rotation (Number) Image rotation in radian (default 0)
+  alpha (Number) Image alpha (default 1)
+  anchorX (Number) Image anchor X (0..1) (default 0)
+  anchorY (Number) Image anchor Y (0..1) (default 0)
+Returns (Int) the image identifier
+
+tfm.exec.addJoint(id, ground1, ground2, jointDef)
+Adds a joint between two physic objects. . Note: In map XML codes, you can also add a « lua="id" » property in a joint definition to be able to interact with it with LUA code.
+  id (Int) the identifier of the joint
+  ground1 (Int) the first ground the joint will affect
+  ground2 (Int) the second ground the joint will affect
+  jointDef (Table) the ground description
+    - type (Int): 0 -> distance joint, 1 -> prismatic joint, 2 -> pulley joint, 3 -> revolute joint
+    - point1 (String "x,y"): location of the ground1 anchor (default: the ground1's center)
+    - point2 (String "x,y"): location of the ground2 anchor (default: the ground2's center), only used with distance and pulley joints
+    - point3 (String "x,y"), point4 (String "x,y"): locations of the pulley's anchors, only used with pulley joints
+    - frequency (Float), damping (Float): distance joints' frequency and damping ratio
+    - axis (String "x,y"), angle (Int): prismatic joints' axis and angle
+    - limit1 (Float), limit2 (Float), forceMotor (Float), speedMotor (Float): prismatic and revolute joints' translation/rotation limits and motors
+    - ratio (Float): revolute joints' ratio
+    - line (Int), color (Int), alpha (Float), foreground (Boolean): if none of these properties is defined, the joint won't be drawn
+
+tfm.exec.addNPC(name, npcDef, targetPlayer)
+Add an NPC to the current map.
+  name (String) NPC name.
+  npcDef (Table) The NPC definition
+    - title (Int): NPC title.
+    - look (String): NPC look.
+    - x (int): X position.
+    - y (int): Y position.
+    - female (bool): Set True if the NPC is female.
+    - lookLeft (bool): Set True to make the NPC look to the left.
+    - lookAtPlayer (bool): Set True to make the NPC look to the player.
+    - interactive (Boolean): If true, player will be able to click on it.
+  targetPlayer (String) the player who will see the NPC (if nil, applies to all players) (default nil)
+
+tfm.exec.addPhysicObject(id, xPosition, yPosition, bodyDef)
+Spawns a ground.
+  id (Int) the identifier of the physic object
+  xPosition (Int) the horizontal coordinate of the center of the ground
+  yPosition (Int) the vertical coordinate of the center of the ground
+  bodyDef (Table) the ground description
+    - type (Int), width (Int), height (Int), foreground (Boolean), friction (Float), restitution (Float), angle (Int), color (Int), miceCollision (Boolean), groundCollision (Boolean)
+    - dynamic (Boolean), fixedRotation (Boolean), mass (Int), linearDamping (Float), angularDamping (Float) for dynamic grounds, contactListener (Boolean)
+
+tfm.exec.addShamanObject(objectType, xPosition, yPosition, angle, xSpeed, ySpeed, ghost, options)
+Spawns a shaman object.
+  objectType (Int) the type of the shaman object to spawn
+  xPosition (Int) the horizontal position of the spawn
+  yPosition (Int) the vertical position of the spawn
+  angle (Int) the rotation angle of the object, in degrees (default 0)
+  xSpeed (Int) the horizontal speed of the object (default 0)
+  ySpeed (Int) the vertical speed of the object (default 0)
+  ghost (Boolean) whether the spawned object should be transparent (default false)
+  options (Table) fixedXSpeed (Number), fixedYSpeed (Number)
+Returns (Int) the shaman object identifier
+
+tfm.exec.attachBalloon(playerName, yes, color, transparent, speed)
+Tie a player to a balloon.
+  playerName (String) the player's nickname
+  yes (Boolean) Attach or dettach the balloon. (default true)
+  color (Int) Balloon color [1-4]. (default 1)
+  transparent (Boolean) Make the balloon transparent. (default false)
+  speed (Number) Balloon speed. (default 1)
+
+tfm.exec.changePlayerSize(playerName, size)
+Changes the size of a player.
+  playerName (String) the player's nickname
+  size (Number) the new size of the player (between 0.1 and 5) (default 1)
+
+tfm.exec.chatMessage(message, playerName)
+Displays a chat message.
+  message (String) the chat message to display
+  playerName (String) the player who will get the message (if nil, applies to all players) (default nil)
+
+tfm.exec.disableAfkDeath(activate)
+Deactivates the automatic afk death.
+  activate (Boolean) whether the deactivation should be active (default true)
+
+tfm.exec.disableAllShamanSkills(active)
+Deactivates all shaman skills.
+  active (Boolean) whether the deactivation should be active (default true)
+
+tfm.exec.disableAutoNewGame(activate)
+Deactivates the automatic renewal of rounds.
+  activate (Boolean) whether the deactivation should be active (default true)
+
+tfm.exec.disableAutoScore(activate)
+Deactivates the automatic scoring management.
+  activate (Boolean) whether the deactivation should be active (default true)
+
+tfm.exec.disableAutoShaman(activate)
+Deactivates the automatic selection of shaman.
+  activate (Boolean) whether the deactivation should be active (default true)
+
+tfm.exec.disableAutoTimeLeft(activate)
+Deactivates the automatic remaining time change to 20s (when the shaman dies for example).
+  activate (Boolean) whether the deactivation should be active (default true)
+
+tfm.exec.disableDebugCommand(activate)
+Disables the effects of the /debug command.
+  activate (Boolean) whether the deactivation should be active (default true)
+
+tfm.exec.disableMinimalistMode(activate)
+Disables the minimalist mode.
+  activate (Boolean) whether the deactivation should be active (default true)
+
+tfm.exec.disableMortCommand(activate)
+Disables the /mort command.
+  activate (Boolean) whether the deactivation should be active (default true)
+
+tfm.exec.disablePhysicalConsumables(active)
+Deactivates physical consumables (like in racing and bootcamp rooms).
+  active (Boolean) whether the deactivation should be active (default true)
+
+tfm.exec.disablePrespawnPreview(display)
+Enables or disables the shaman objects prespawn preview.
+  display (Boolean) whether the prespawn preview should not be displayed (default true)
+
+tfm.exec.disableWatchCommand(activate)
+Disables the effects of the /watch command.
+  activate (Boolean) whether the deactivation should be active (default true)
+
+tfm.exec.displayParticle(particleType, xPosition, yPosition, xSpeed, ySpeed, xAcceleration, yAcceleration, targetPlayer)
+Displays a particle.
+  particleType (Int) the kind of particle you want to display
+  xPosition (Int) the horizontal coordinate of the particle
+  yPosition (Int) the vertical coordinate of the particle
+  xSpeed (Number) the horizontal speed of the particle (default 0)
+  ySpeed (Number) the vertical speed of the particle (default 0)
+  xAcceleration (Number) the horizontal acceleration of the particle (default 0)
+  yAcceleration (Number) the vertical acceleration of the particle (default 0)
+  targetPlayer (String) the player who should see the particle (if nil, applies to all players) (default nil)
+
+tfm.exec.explosion(xPosition, yPosition, power, radius, miceOnly)
+Throws an explosion.
+  xPosition (Int) the horizontal coordinate of the center of the explosion
+  yPosition (Int) the vertical coordinate of the center of the explosion
+  power (Int) the maximum power of the explosion
+  radius (Int) the explosion radius (players further away won't be affected)
+  miceOnly (Boolean) whether the explosion should affect only mice, or objects too (default false)
+
+tfm.exec.freezePlayer(playerName, freeze, displayIce)
+Froze a player.
+  playerName (String) the player's nickname
+  freeze (Boolean) Freeze or unfreeze (default true)
+  displayIce (Boolean) Display or not ice on the mouse. (default true)
+
+tfm.exec.getPlayerSync()
+Get current player sync.
+
+tfm.exec.giveCheese(playerName)
+Gives the cheese to a player.
+  playerName (String) the player who should get the cheese
+
+tfm.exec.giveConsumables(playerName, consumableId, amount)
+Gives consumables to the targeted player.
+  playerName (String) the player to give the gift to
+  consumableId (String) the consumable identifier
+  amount (String) the amount of consumables to give (default "1")
+
+tfm.exec.giveMeep(playerName, canMeep)
+Gives the meep competence to a player, or removes it.
+  playerName (String) the player's nickname
+  canMeep (Boolean) whether the player should be able to meep (default true)
+
+tfm.exec.giveTransformations(playerName, canTransform)
+Gives the transformations to a player, or removes them.
+  playerName (String) the player's nickname
+  canTransform (Boolean) whether the player should be able to use transformations (default true)
+
+tfm.exec.killPlayer(playerName)
+Kills the selected player.
+  playerName (String) the player to kill
+
+tfm.exec.linkMice(playerName1, playerName2, linked)
+Allows to link players like in soulmate maps.
+  playerName1 (String) the first player's nickname
+  playerName2 (String) the second player's nickname
+  linked (Boolean) whether the two players should be linked (default true)
+
+tfm.exec.lowerSyncDelay(playerName)
+Lowers the synchronization delay of a player to 400ms max
+  playerName (String) the player who should have a lower sync delay
+
+tfm.exec.moveObject(objectId, xPosition, yPosition, positionOffset, xSpeed, ySpeed, speedOffset, angle, angleOffset)
+Defines the speed and position of a shaman object.
+  objectId (Int) the shaman object identifier
+  xPosition (Int) the horizontal coordinate of the point where the object will be moved
+  yPosition (Int) the vertical coordinate of the point where the object will be moved
+  positionOffset (Boolean) whether the specified position is an offset to apply to the current one, or the absolute one (default false)
+  xSpeed (Int) the horizontal coordinate of the speed to give to the object (default 0)
+  ySpeed (Int) the vertical coordinate of the speed to give to the object (default 0)
+  speedOffset (Boolean) whether the specified speed is an offset to apply to the current one, or the absolute one (default false)
+  angle (Int) the angle of the the object (default 0)
+  angleOffset (Boolean) whether the specified angle is an offset to apply to the current one, or the absolute one (default false)
+
+tfm.exec.movePlayer(playerName, xPosition, yPosition, positionOffset, xSpeed, ySpeed, speedOffset)
+Defines the speed and position of a player.
+  playerName (String) the player to move
+  xPosition (Int) the horizontal coordinate of the point where the player will be moved
+  yPosition (Int) the vertical coordinate of the point where the player will be moved
+  positionOffset (Boolean) whether the specified position an offset to apply to the current one, or the absolute one (default false)
+  xSpeed (Int) the horizontal coordinate of the speed to give to the player (default 0)
+  ySpeed (Int) the vertical coordinate of the speed to give to the player (default 0)
+  speedOffset (Boolean) whether the specified speed an offset to apply to the current one, or the absolute one (default false)
+
+tfm.exec.newGame(mapCode, flipped)
+Starts a new game
+  mapCode (String) the map code (default nil)
+    - nil (a random map)
+    - 6 (vanilla map)
+    - @42583 (editor map)
+    - #4 (perm category map)
+    - anything beginning with '<' (xml map)
+  flipped (Boolean) whether the map should be flipped (default nil (randomly mirrored in racing and bootcamp rooms, unless))
+
+tfm.exec.playEmote(playerName, emoteId, emoteArg)
+Makes a player do an emote.
+  playerName (String) the player who should do the emote
+  emoteId (Int) the emote to do
+  emoteArg (String) the emote attribute (for the flag emote for example) (default nil)
+
+tfm.exec.playerVictory(playerName)
+Makes a player enter the hole. It only works if the player already has a cheese!
+  playerName (String) the player who should win
+
+tfm.exec.removeBonus(id, targetPlayer)
+Remove a defilante bonus.
+  id (Int) Identifier. (default 0)
+  targetPlayer (String) Send only to this specific player. (default nil)
+
+tfm.exec.removeCheese(playerName)
+Takes away the cheese from a player.
+  playerName (String) the player who should get their cheese removed
+
+tfm.exec.removeImage(imageId)
+Removes an image.
+  imageId (Int) the image identifier
+
+tfm.exec.removeJoint(id)
+Removes a joint from the game.
+  id (Int) the identifier of the joint to remove
+
+tfm.exec.removeObject(objectId)
+Removes a shaman object.
+  objectId (Int) the shaman object identifier
+
+tfm.exec.removePhysicObject(id)
+Removes a ground from the game.
+  id (Int) the identifier of the ground to remove
+
+tfm.exec.respawnPlayer(playerName)
+Respawns a player.
+  playerName (String) the player to respawn
+
+tfm.exec.setAieMode(enable, sensibility, targetPlayer)
+Enable 'Aie' mode when mice can die when they hit something too hard. Last until the next map.
+  enable (Boolean) Enabled or disable 'Aie' mode. (default true)
+  sensibility (Number) Sensibility of the 'Aie' mode. (default 1)
+  targetPlayer (String) Target player (nil for all player in room). (default nil)
+
+tfm.exec.setAutoMapFlipMode(flipped)
+Sets whether the following maps should be flipped (always, never, or TFM's default behaviour).
+  flipped (Boolean) whether the maps should be flipped (default nil (the default TFM behaviour))
+
+tfm.exec.setGameTime(time, init)
+Sets the game remaining time.
+  time (Int) the remaining time in seconds
+  init (Boolean) whether the remaining time should change even if the specified remaining time is higher than the current one (default true)
+
+tfm.exec.setNameColor(playerName, color)
+Changes a player's nickname's color.
+  playerName (String) the player whose nickname  should be colored
+  color (Int) the color of the nickname
+
+tfm.exec.setPlayerGravityScale(playerName, gravityScale)
+Set the world gravity scale for a player.
+  playerName (String) Targeted player name.
+  gravityScale (Number) Gravity scale value. (default 1)
+
+tfm.exec.setPlayerNightMode(nightMode, playerName)
+Set the night mode for a player.
+  nightMode (Boolean) Enable or disable the night mode. (default true)
+  playerName (String) Targeted player name. If nil affect all player in room.
+
+tfm.exec.setPlayerScore(playerName, score, add)
+Sets the player's score.
+  playerName (String) the player who should get his or her score changed
+  score (Int) the score
+  add (Boolean) whether the current score should be added to the specified one (default false)
+
+tfm.exec.setPlayerSync(playerName)
+Set current player sync.
+  playerName (String) Target player name (Nil to let the server decide).
+
+tfm.exec.setRoomMaxPlayers(maxPlayers)
+Sets the max number of players in a room.
+  maxPlayers (Int) the maximum number of players the room can hold
+
+tfm.exec.setRoomPassword(password)
+Password-protects a room.
+  password (String) the string to set as the password (an empty string removes the protection)
+
+tfm.exec.setShaman(playerName, makeAShaman)
+Makes a player a shaman.
+  playerName (String) the player who should become a shaman
+  makeAShaman (Boolean) whether the player should be a shaman (default true)
+
+tfm.exec.setShamanMode(playerName, mode)
+Changes the shaman mode of a player.
+  playerName (String) the player's nickname who will have another shaman mode
+  mode (Int) the new shaman mode of the target (use nil to use the player's real mode) (default nil)
+
+tfm.exec.setVampirePlayer(playerName, makeAVampire)
+Makes a player a vampire.
+  playerName (String) the player to make a vampire
+  makeAVampire (Boolean) whether the player should be a vampire (default true)
+
+tfm.exec.setWorldGravity(x, y)
+Set the world gravity.
+  x (Int) Gravity on x axis. (default 0)
+  y (Int) Gravity on y axis (default 10)
+
+tfm.exec.snow(duration, snowballPower)
+Makes the snow fall.
+  duration (Int) the snowfall duration in seconds (default 60)
+  snowballPower (Int)  (default 10)
+
+ui.addPopup(id, type, text, targetPlayer, x, y, width, fixedPos)
+Displays a popup.
+  id (Int) the identifier of the popup
+  type (Int) the popup type (0 for simple, 1 for yes or no, 2 for player input)
+  text (String) the text to display
+  targetPlayer (String) the player who will see the popup (if nil, applies to all players)
+  x (Int) the horizontal coordinate of the top-left corner (default 50)
+  y (Int) the vertical coordinate of the top-left corner (default 50)
+  width (Int) the width in pixels of the popup (if 0, it will be ajusted to the text width) (default 0)
+  fixedPos (Boolean) whether the position is fixed or if it should follow the player's camera on long maps (default false)
+
+ui.addTextArea(id, text, targetPlayer, x, y, width, height, backgroundColor, borderColor, backgroundAlpha, fixedPos)
+Displays a text area.
+  id (Int) the identifier of the text area
+  text (String) the text to display
+  targetPlayer (String) the player who will see the text area (if nil, applies to all players) (default nil)
+  x (Int) the horizontal coordinate of the top-left corner (default 50)
+  y (Int) the vertical coordinate of the top-left corner (default 50)
+  width (Int) the width in pixels of the text area (if 0, it will be ajusted to the text width) (default 0)
+  height (Int) the height in pixels of the text area (if 0, it will be ajusted to the text height) (default 0)
+  backgroundColor (Int) the background color of the text area (default 0x324650)
+  borderColor (Int) the border color of the text area (default 0)
+  backgroundAlpha (Number) the background's opacity, from 0 (transparent) to 1 (opaque) (default 1)
+  fixedPos (Boolean) whether the position is fixed or if it should follow the player's camera on long maps (default false)
+
+ui.removeTextArea(id, targetPlayer)
+Removes a text area.
+  id (Int) the identifier of the text area
+  targetPlayer (String) the player whom the text area will disappear (if nil, applies to all players) (default nil)
+
+ui.setBackgroundColor(color)
+Set the background color. Last one game.
+  color (String) Background color. (default "#6A7495")
+
+ui.setMapName(text)
+Sets the map name.
+  text (String) the text to display as the map name
+
+ui.setShamanName(text)
+Sets the shaman name.
+  text (String) the text to display as the shaman name
+
+ui.showColorPicker(id, targetPlayer, defaultColor, title)
+Displays a color picker.
+  id (Int) the identifier of the color picker
+  targetPlayer (String) the player who will see the color picker (if nil, applies to all players) (default nil)
+  defaultColor (Int) the default color on the color picker (default 0)
+  title (String) the title of the color picker (default nil)
+
+ui.updateTextArea(id, text, targetPlayer)
+Updates the content of a text area.
+  id (Int) the identifier of the text area
+  text (String) the new text to display
+  targetPlayer (String) the player who will get displayed the new text (if nil, applies to all players) (default nil)
+

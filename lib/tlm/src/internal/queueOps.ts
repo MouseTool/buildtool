@@ -1,5 +1,7 @@
 import DoublyLinkedList from "../../../linkedlist/src/DoublyLinkedList";
 
+const unpack = table.unpack;
+
 type QueueItem = {
   callback: Function;
   args: any[];
@@ -7,8 +9,8 @@ type QueueItem = {
 };
 
 export interface IProcessQueue {
-  enqueue(callback: Function, ...args: any);
-  drain();
+  enqueue(callback: Function, ...args: any): void;
+  drain(): Generator;
 }
 
 export class GeneralProcessQueue implements IProcessQueue {
@@ -26,10 +28,12 @@ export class GeneralProcessQueue implements IProcessQueue {
     });
   }
 
-  drain() {
-    const queue = this.queue
+  *drain() {
+    const queue = this.queue;
     while (queue.front()) {
-
+      const { callback, args, argCount } = queue.popFront();
+      callback(unpack(args, argCount));
+      yield;
     }
   }
 }

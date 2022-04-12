@@ -5,7 +5,7 @@ import {
   TickStats,
   TickTypes,
 } from "../process";
-import { IProcessQueue } from "./queueOps";
+import { GeneralProcessQueue, IProcessQueue } from "./queueOps";
 
 export const options: ProcessQueueOptions = {
   cycleDuration: 4000,
@@ -28,11 +28,11 @@ let currentQueuedAt: number;
 type QueuableTypes = PhaseTypes | "postPhase";
 
 const queueOps: Record<QueuableTypes, IProcessQueue> = {
-  timers: undefined,
-  deferredEvents: undefined,
-  events: undefined,
-  close: undefined,
-  postPhase: undefined,
+  timers: new GeneralProcessQueue(),
+  deferredEvents: new GeneralProcessQueue(),
+  events: new GeneralProcessQueue(),
+  close: new GeneralProcessQueue(),
+  postPhase: new GeneralProcessQueue(),
 };
 
 /**
@@ -48,10 +48,10 @@ export function queue(type: QueuableTypes, callback: Function, ...args: any) {
   }
 }
 
-const tickQueueSeq: Record<TickTypes, QueuableTypes[]> = {
-  loop: [],
-  event: [],
-  timer: [],
+const tickQueueSeq: Record<TickTypes, PhaseTypes[]> = {
+  loop: ["deferredEvents", "close"],
+  event: ["events", "close"],
+  timer: ["timers", "close"],
 };
 
 export function fireTick(tickType: TickTypes) {
@@ -61,8 +61,20 @@ export function fireTick(tickType: TickTypes) {
   }
 
   currentTickType = tickType;
+  let tmp = os.time();
   for (const qType of seq) {
-    queueOps[qType].drain();
+    const iter = queueOps[qType].drain();
+    for (const _ of iter) {
+      //print(`cb take time: ${os.time() - tmp}`);
+    }
+    print(`cb take time: ${os.time() - tmp}`);
+
+    // Drain the post-phase queue after each seq
+    const postIter = queueOps["postPhase"].drain();
+    for (const _ of postIter) {
+      //print(`postcb take time: ${os.time() - tmp}`);
+    }
+    print(`postcb take time: ${os.time() - tmp}`);
   }
 }
 
@@ -80,12 +92,12 @@ export function tickStats() {
   return {
     currentPhase,
     currentQueuedAt,
-    currentTickType: currentTickType,
+    currentTickType,
   } as TickStats;
 }
 
 /**
- * Sets or gets the current process queue options.
+ * Sets or retrieves the current process queue options.
  */
 export function processQueueOpts(): ProcessQueueOptions;
 export function processQueueOpts(options: Partial<ProcessQueueOptions>): void;

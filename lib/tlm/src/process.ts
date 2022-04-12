@@ -1,4 +1,4 @@
-import { tickStats, queue, runtimeUsage } from "./internal/processQueues";
+import { queue, runtimeUsage, tickStats } from "./internal/processQueues";
 import { TlmPromise } from "./promise";
 
 /*
@@ -37,6 +37,10 @@ A timer tick can be fired off due to a `system.newTimer` callback, or directly a
 during an `eventLoop` callback.
 1. timers
 2. close
+ */
+
+/**
+ * @noSelfInFile
  */
 
 export type TickTypes = "loop" | "event" | "timer";
@@ -94,10 +98,12 @@ export function postPhase(callback: Function, ...args: any[]) {
  * Re-promisifies a TSTL `Promise` function so that it will conform to the rules of the TLM event
  * loop, and only attempts to execute when a resolve handler exists.
  */
-export function reasync<TArgs extends any[], TReturn>(promiseFnc: (...args: TArgs) => Promise<TReturn>) {
+export function reasync<TArgs extends any[], TReturn>(
+  promiseFnc: (this: void, ...args: TArgs) => Promise<TReturn>
+) {
   return (...args: TArgs) => {
-    return TlmPromise.wrap(promiseFnc(...args))
-  }
+    return TlmPromise.wrap(promiseFnc(...args));
+  };
 }
 
 /**
@@ -108,9 +114,7 @@ export function reasync<TArgs extends any[], TReturn>(promiseFnc: (...args: TArg
  *
  * A deferrable function should therefore be written in anticipation that it will not execute soon.
  */
-export function defer() {
-
-}
+export function defer() {}
 
 export const launchTime = os.time();
 

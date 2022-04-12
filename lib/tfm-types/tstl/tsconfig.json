@@ -9,19 +9,14 @@
     "noImplicitAny": false,
     "noImplicitThis": true,
     "strictBindCallApply": false,
-    "types": ["tfm-tstl/types", "typescript-to-lua/language-extensions"]
+    "declaration": true,
+    "outDir": "dist",
+    "types": ["./types", "typescript-to-lua/language-extensions"]
   },
   "tstl": {
-    "buildMode": "default",
+    "buildMode": "library",
     "luaTarget": "5.2",
-    "noImplicitSelf": true,
-    "sourceMapTraceback": false,
-    "luaBundle": "buildtool.lua",
-    "luaBundleEntry": "src/main.ts",
-    "luaPlugins": [
-      {"name": "@mousetool/tstl-tlm/plugins"}
-    ],
-    "noHeader": true
+    "noImplicitSelf": true
   },
-  "include": ["src"]
+  "include": ["types/**/*.ts"]
 }

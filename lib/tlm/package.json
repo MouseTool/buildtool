@@ -1,0 +1,22 @@
+{
+  "name": "@mousetool/tstl-tlm",
+  "version": "1.0.0",
+  "description": "Transformice runtime on balloon steroids.",
+  "main": "./dist/index",
+  "types": "./dist/index",
+  "scripts": {
+    "build": "tstl",
+    "build:watch": "tstl --watch"
+  },
+  "author": "Cassolette",
+  "license": "MIT",
+  "devDependencies": {
+    "tfm-tstl": "link:..\\tfm-types\\tstl\\",
+    "typescript": "^4.6.3",
+    "typescript-to-lua": "^1.4.3"
+  },
+  "files": [
+    "dist/**/*.lua",
+    "dist/**/*.d.ts"
+  ]
+}

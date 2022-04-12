@@ -1,11 +1,17 @@
-import { postPhase } from "./process";
+import { queue } from "./internal/processQueues";
+
+// Rememeber: Do not recursively import `process` here!
 
 // `this` (unused) param to be compatible with Lualib.
+
+/** @noSelf */
 type FulfillCallback<TData, TResult> = (
-  this: any,
   value: TData
 ) => TResult | PromiseLike<TResult>;
-type RejectCallback<TResult> = (this: any, reason: any) => TResult | PromiseLike<TResult>;
+/** @noSelf */
+type RejectCallback<TResult> = (
+  reason: any
+) => TResult | PromiseLike<TResult>;
 
 function tlmPromiseDeferred<T>() {
   let resolve: FulfillCallback<T, unknown>;
@@ -17,6 +23,11 @@ function tlmPromiseDeferred<T>() {
 
   return { promise, resolve, reject };
 }
+
+// TSTL `await` doesn't do this for us
+// function adoptToPromise<T>(value: T) {
+//   return value instanceof Promise ? value : Promise.resolve(value);
+// }
 
 /**
  * Represents the completion of an asynchronous operation in TLM.
@@ -32,16 +43,30 @@ export class TlmPromise<T> extends Promise<T> {
     return TlmPromise.wrap(
       super.then(
         (value) => {
-          return new Promise<TResult1>((res) => {
-            postPhase(async () => {
-              res(await onFulfilled(value));
+          return new Promise<TResult1>((resolve) => {
+            queue("postPhase", () => {
+              const valueOrPromise = onFulfilled(value);
+              if (valueOrPromise instanceof Promise) {
+                valueOrPromise.then((result) => {
+                  resolve(result);
+                });
+              } else {
+                resolve(valueOrPromise);
+              }
             });
           });
         },
         (reason) => {
-          return new Promise<TResult2>((res) => {
-            postPhase(async () => {
-              res(await onRejected(reason));
+          return new Promise<TResult2>((resolve) => {
+            queue("postPhase", () => {
+              const valueOrPromise = onRejected(reason);
+              if (valueOrPromise instanceof Promise) {
+                valueOrPromise.then((result) => {
+                  resolve(result);
+                });
+              } else {
+                resolve(valueOrPromise);
+              }
             });
           });
         }
