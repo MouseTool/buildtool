@@ -1,3 +1,4 @@
+import launchTime from "./internal/launchTime";
 import { queue, runtimeUsage, tickStats } from "./internal/processQueues";
 import { TlmPromise } from "./promise";
 
@@ -44,7 +45,7 @@ during an `eventLoop` callback.
  */
 
 export type TickTypes = "loop" | "event" | "timer";
-export type PhaseTypes = "timers" | "deferredEvents" | "events" | "close";
+export type PhaseTypes = "timers" | "deferrables" | "events" | "close";
 
 /**
  * Provides information on the current tick.
@@ -116,6 +117,4 @@ export function reasync<TArgs extends any[], TReturn>(
  */
 export function defer() {}
 
-export const launchTime = os.time();
-
-export { tickStats, runtimeUsage };
+export { tickStats, runtimeUsage, launchTime };

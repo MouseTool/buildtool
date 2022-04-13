@@ -1,10 +1,10 @@
-import { fireTick } from "../lib/tlm/src/internal/processQueues";
+import { fireTick, queue } from "../lib/tlm/src/internal/processQueues";
 import { launchTime, reasync } from "../lib/tlm/src/process";
 
 const test = 1 << 2;
 
 for (const t of ["a"]) {
-  //continue; // not suported by luaJ 2.0
+  //continue; // not suported by luaJ 3.0
 }
 
 const ob = new Map<string, number>();
@@ -20,35 +20,28 @@ for (const [k, v] of ob) {
 }
 print(`test ${ob.get("Two")}`);
 
-function estimateTimeToNextCycle(currentTime: number) {
-  const timeSinceLaunch = currentTime - launchTime;
-  return (4000 - timeSinceLaunch) % 4000;
-}
-
 let i = 0;
 eventLoop = (t) => {
   let st = os.time();
   let me = ++i;
-  print(`evtLoop ${me} duration since launch?`, (st - launchTime) / 1000);
-  print(`evtLoop ${me} cycleId?`, math.floor((st - launchTime) / 4000));
-  print(`evtLoop ${me} time to reset?`, estimateTimeToNextCycle(st) / 1000);
 
-  reasync(namae)().then((v) => {
-    print(me, "ret", ...v);
+
+  queue("events", () => {
+    reasync(namae)().then((v) => {
+      print(me, "ret", ...v);
+    });
+
+    //fuck runtim
+    for (let i = 0; i < 15000; i++) {
+      const j = i + 1;
+    }
   });
 
-  //print(`evtLoop ${me} mid ms:`, os.time() - st)
-  //fireTick("loop");
+  print(`evtLoop ${me} (pre-loop) ms:`, os.time() - st);
+  fireTick("loop");
+  print(`evtLoop ${me} (pree-evt) ms:`, os.time() - st);
   fireTick("event");
-
-  //fuck runtim
-  for (let i = 0; i < 15000; i++) {
-    const j = i + 1;
-  }
   print(`evtLoop ${me} total ms:`, os.time() - st);
-  if (os.time() - st > 10) {
-    //error("muchs runtime " + (os.time() - st))
-  }
 };
 
 //eventLoop(2);
