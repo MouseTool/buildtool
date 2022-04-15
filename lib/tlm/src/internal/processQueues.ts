@@ -1,3 +1,5 @@
+/** @noSelfInFile */
+
 import type {
   PhaseTypes,
   ProcessQueueOptions,
@@ -66,22 +68,25 @@ function runtimeCheck() {
   const timeSinceLaunch = currentTime - launchTime + timeSinceLaunchOffset;
   const currentCycleId = mathFloor(timeSinceLaunch / cycleDuration);
 
-
   //print("before runt use", cycleRuntimeUse)
   if (currentCycleId > cycleId) {
     cycleRuntimeUse = 0;
-    cycleId = currentCycleId
+    cycleId = currentCycleId;
+    if (!isPaused) {
+      print("!!!!!! Resumed !!!!!!!");
+    } else {
+      print("!!!!!! Reset !!!!!!!");
+    }
     isPaused = false;
-    print("!!!!!! Resumed !!!!!!!")
   }
 
   const pressure = calculateRationPressure(timeSinceLaunch);
   if (pressure > rationLevelCritical) {
     isPaused = true;
-    print("!!!!!! Paused !!!!!!!")
+    print("!!!!!! Paused !!!!!!!");
   }
 
-  print("pressure", pressure)
+  print("pressure", pressure, cycleRuntimeUse);
 
   return pressure;
 }
@@ -115,79 +120,84 @@ const tickQueueSeq: Record<TickTypes, PhaseTypes[]> = {
   timer: ["timers", "close"],
 };
 
-let currentTickCoroutine: LuaThread;
+let currentPhaseStack: PhaseTypes[] = [];
+/**
+ * Performs or resumes work for a phase.
+ * @returns Whether or not the phase was completed
+ */
+function resumePhase(): boolean {
+  const qType = currentPhaseStack[currentPhaseStack.length - 1];
+  if (!qType) {
+    print(qType, "why qType is nill", debug.traceback());
+    return true;
+  }
+  currentPhase = qType;
+
+  runtimeCheck();
+  if (isPaused) {
+    return false;
+  }
+
+  const iter = queueOps[qType].drain();
+  while (true) {
+    const startTime = osTime();
+    const result = iter.next();
+    if (result.done) {
+      break;
+    }
+    cycleRuntimeUse += osTime() - startTime;
+
+    const pressure = runtimeCheck();
+    if (isPaused) {
+      return false;
+    } else if (qType == "deferrables" && pressure > rationLevelMedium) {
+      print("defer again");
+      break;
+    }
+  }
+  //print(`cb take time: ${os.time() - tmp}`);
+
+  // Drain the post-phase queue after each seq
+  const postIter = queueOps["postPhase"].drain();
+  while (true) {
+    const startTime = osTime();
+    const result = postIter.next();
+    if (result.done) {
+      break;
+    }
+    cycleRuntimeUse += osTime() - startTime;
+
+    runtimeCheck();
+    if (isPaused) {
+      return false;
+    }
+  }
+
+  currentPhaseStack[currentPhaseStack.length - 1] = null;
+  return true;
+}
 
 export function fireTick(tickType: TickTypes) {
   if (isPaused) {
     runtimeCheck();
-    // resume coroutine
+    // Resume event loop
     if (!isPaused) {
-      coroutine.resume(currentTickCoroutine);
+      resumePhase();
     }
     return;
   }
 
-  currentTickCoroutine = coroutine.create(() => {
-    runtimeCheck();
-    if (isPaused) {
-      coroutine.yield();
-    }
+  const seq = tickQueueSeq[tickType];
+  if (!seq) {
+    error(`Invalid tick type ${tickType}!`);
+  }
 
-    const seq = tickQueueSeq[tickType];
-    if (!seq) {
-      error(`Invalid tick type ${tickType}!`);
-    }
-
-    currentTickType = tickType;
-
-    let tmp = os.time();
-    let d = false
-    for (const qType of seq) {
-      currentPhase = qType;
-
-      const iter = queueOps[qType].drain();
-      while (true) {
-        const startTime = osTime()
-        const result = iter.next();
-        if (result.done) {
-          break;
-        }
-        cycleRuntimeUse += osTime() - startTime
-
-        const pressure = runtimeCheck();
-        if (isPaused) {
-          coroutine.yield();
-        } else if (qType == "deferrables" && pressure > rationLevelMedium) {
-          print("defer again")
-          break;
-        }
-      }
-      //print(`cb take time: ${os.time() - tmp}`);
-
-      // Drain the post-phase queue after each seq
-      const postIter = queueOps["postPhase"].drain();
-      while (true) {
-        const startTime = osTime()
-        const result = postIter.next();
-        if (result.done) {
-          break;
-        }
-        cycleRuntimeUse += osTime() - startTime
-
-        runtimeCheck();
-        if (isPaused) {
-          coroutine.yield();
-        }
-      }
-      print(d?2:1,"drain take ms: ",  osTime() - tmp)
-      d=true
-      //print(`postcb take time: ${os.time() - tmp}`);
-    }
-  });
+  currentTickType = tickType;
+  currentPhaseStack = Array.from(seq).reverse();
 
   let tmp = os.time();
-  coroutine.resume(currentTickCoroutine);
-  print("fire total take ms: ",  osTime() - tmp)
+  resumePhase();
+  print("fire total take ms: ", osTime() - tmp);
 }
 
 /**

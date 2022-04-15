@@ -13,6 +13,7 @@ type RejectCallback<TResult> = (
   reason: any
 ) => TResult | PromiseLike<TResult>;
 
+/** @noSelf */
 function tlmPromiseDeferred<T>() {
   let resolve: FulfillCallback<T, unknown>;
   let reject: RejectCallback<unknown>;

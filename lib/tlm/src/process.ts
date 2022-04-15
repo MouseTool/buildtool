@@ -1,3 +1,5 @@
+/** @noSelfInFile */
+
 import launchTime from "./internal/launchTime";
 import { queue, runtimeUsage, tickStats } from "./internal/processQueues";
 import { TlmPromise } from "./promise";
