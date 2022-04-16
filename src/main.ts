@@ -32,7 +32,7 @@ eventLoop = (t) => {
     });
 
     //fuck runtim
-    for (let i = 0; i < 15000; i++) {
+    for (let i = 0; i < 27000; i++) {
       const j = i + 1;
     }
   });

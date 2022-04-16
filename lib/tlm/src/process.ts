@@ -1,7 +1,13 @@
 /** @noSelfInFile */
 
 import launchTime from "./internal/launchTime";
-import { queue, runtimeUsage, tickStats } from "./internal/processQueues";
+import {
+  defer,
+  queue,
+  runtimeCycleStats,
+  tickStats,
+} from "./internal/processQueues";
+import { CallbackFunction } from "./internal/queueOps";
 import { TlmPromise } from "./promise";
 
 /*
@@ -42,10 +48,6 @@ during an `eventLoop` callback.
 2. close
  */
 
-/**
- * @noSelfInFile
- */
-
 export type TickTypes = "loop" | "event" | "timer";
 export type PhaseTypes = "timers" | "deferrables" | "events" | "close";
 
@@ -61,6 +63,21 @@ export interface TickStats {
    * Available during the "deferred events" and "event callbacks" phase.
    */
   currentQueuedAt?: number;
+}
+
+/**
+ * Provides information on the current runtime information within the current 4-seconds cycle.
+ */
+export interface RuntimeCycleStats {
+  cycleId: number;
+  /**
+   * The runtime usage (ms).
+   */
+  cycleRuntimeUse: number;
+  /**
+   * Calculates the ration pressure level (%), denoting how aggressive runtime savings should be.
+   */
+  calculateRationPressure: (this: void) => number;
 }
 
 export type ProcessQueueOptions = {
@@ -93,7 +110,7 @@ export type ProcessQueueOptions = {
  * It is similar to Node's `process.nextTick`, but has been named differently to better reflect its
  * use.
  */
-export function postPhase(callback: Function, ...args: any[]) {
+export function postPhase(callback: CallbackFunction, ...args: any[]) {
   queue("postPhase", callback, ...args);
 }
 
@@ -109,14 +126,4 @@ export function reasync<TArgs extends any[], TReturn>(
   };
 }
 
-/**
- * A deferrable queues a callback differently depending on the ration pressure.
- *
- * - `rationPressure == LOW`: post-phase queue
- * - `rationPressure >= MEDIUM`: deferrables queue
- *
- * A deferrable function should therefore be written in anticipation that it will not execute soon.
- */
-export function defer() {}
-
-export { tickStats, runtimeUsage, launchTime };
+export { tickStats, runtimeCycleStats, defer, launchTime };

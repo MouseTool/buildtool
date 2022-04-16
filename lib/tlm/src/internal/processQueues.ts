@@ -3,11 +3,17 @@
 import type {
   PhaseTypes,
   ProcessQueueOptions,
+  RuntimeCycleStats,
   TickStats,
   TickTypes,
 } from "../process";
 import launchTime from "./launchTime";
-import { GeneralProcessQueue, IProcessQueue } from "./queueOps";
+import {
+  CallbackFunction,
+  GeneralProcessQueue,
+  getCurrentQueuedAt,
+  IProcessQueue,
+} from "./queueOps";
 
 const osTime = os.time;
 const mathFloor = math.floor;
@@ -23,12 +29,12 @@ export const options: ProcessQueueOptions = {
 let cycleDuration = 4000;
 let runtimeLimit = 60;
 let rationLevelMedium = 60;
-let rationLevelCritical = 90;
+let rationLevelCritical = 80;
 
 // ! Tick stats !
 let currentTickType: TickTypes;
 let currentPhase: PhaseTypes;
-let currentQueuedAt: number;
+// `currentQueuedAt` is in queueOps.
 
 // ! Runtime cycle !
 // Calculated from `floor((currentTime - launchTime) / cycleDuration)`
@@ -41,18 +47,25 @@ let isPaused = false;
  * We offset the `timeSinceLaunch` during cycle calculations to give some kind of buffer to avoid
  * early resets.
  */
-const timeSinceLaunchOffset = -100;
+const timeSinceLaunchOffset = -150;
 
 /**
  * Calculates the ration pressure level, denoting how aggressive runtime savings should be.
  */
-function calculateRationPressure(timeSinceLaunch: number) {
+function calculateRationPressure(
+  timeSinceLaunch: number = osTime() - launchTime + timeSinceLaunchOffset
+) {
   const timeLeftToReset = (cycleDuration - timeSinceLaunch) % cycleDuration;
 
+  const runtimeUseRatio = cycleRuntimeUse / runtimeLimit;
   // Calculate the pressure...
   return (
-    // 1. Raw ratio of runtime usage over limit weighs 80%
-    (cycleRuntimeUse / runtimeLimit) * 80 +
+    // 1. Raw ratio (%) of runtime usage over limit,
+    //    - ratio >= 0                 : weighs 80%
+    //    - ratio >= rationLevelMedium : weighs 95%
+    (runtimeUseRatio * 100 > rationLevelMedium
+      ? runtimeUseRatio * 95
+      : runtimeUseRatio * 80) +
     // 2. `timeLeftToReset` weighs 20%, a lower `timeLeftToReset` causes a lower pressure
     (timeLeftToReset / 4000) * 20
   );
@@ -61,7 +74,7 @@ function calculateRationPressure(timeSinceLaunch: number) {
 /**
  * Checks current runtime usage and does bookkeeping on the runtime cycle status.
  *
- *
+ * @returns The calculated pressure.
  */
 function runtimeCheck() {
   const currentTime = osTime();
@@ -72,18 +85,20 @@ function runtimeCheck() {
   if (currentCycleId > cycleId) {
     cycleRuntimeUse = 0;
     cycleId = currentCycleId;
-    if (!isPaused) {
+    if (isPaused) {
+      isPaused = false;
       print("!!!!!! Resumed !!!!!!!");
     } else {
       print("!!!!!! Reset !!!!!!!");
     }
-    isPaused = false;
   }
 
   const pressure = calculateRationPressure(timeSinceLaunch);
   if (pressure > rationLevelCritical) {
-    isPaused = true;
-    print("!!!!!! Paused !!!!!!!");
+    if (!isPaused) {
+      isPaused = true;
+      print("!!!!!! Paused !!!!!!!");
+    }
   }
 
   print("pressure", pressure, cycleRuntimeUse);
@@ -105,7 +120,11 @@ const queueOps: Record<QueuableTypes, IProcessQueue> = {
  * Queues `callback` to the specified phase's queue `type`. Do not call this unless you know what
  * you're doing!
  */
-export function queue(type: QueuableTypes, callback: Function, ...args: any) {
+export function queue(
+  type: QueuableTypes,
+  callback: CallbackFunction,
+  ...args: any[]
+) {
   const queueOp = queueOps[type];
   if (queueOp) {
     queueOp.enqueue(callback, ...args);
@@ -138,11 +157,10 @@ function resumePhase(): boolean {
     return false;
   }
 
-  const iter = queueOps[qType].drain();
+  const mainQueue = queueOps[qType];
   while (true) {
     const startTime = osTime();
-    const result = iter.next();
-    if (result.done) {
+    if (!mainQueue.dequeue()) {
       break;
     }
     cycleRuntimeUse += osTime() - startTime;
@@ -158,11 +176,10 @@ function resumePhase(): boolean {
   //print(`cb take time: ${os.time() - tmp}`);
 
   // Drain the post-phase queue after each seq
-  const postIter = queueOps["postPhase"].drain();
+  const postQueue = queueOps["postPhase"];
   while (true) {
     const startTime = osTime();
-    const result = postIter.next();
-    if (result.done) {
+    if (!postQueue.dequeue()) {
       break;
     }
     cycleRuntimeUse += osTime() - startTime;
@@ -201,10 +218,14 @@ export function fireTick(tickType: TickTypes) {
 }
 
 /**
- * Calculates the runtime usage within the current 4-seconds cycle.
+ * Calculates the runtime usage (in ms) within the current 4-seconds cycle.
  */
-export function runtimeUsage() {
-  return os.time();
+export function runtimeCycleStats() {
+  return {
+    calculateRationPressure,
+    cycleId,
+    cycleRuntimeUse,
+  } as RuntimeCycleStats;
 }
 
 /**
@@ -213,7 +234,7 @@ export function runtimeUsage() {
 export function tickStats() {
   return {
     currentPhase,
-    currentQueuedAt,
+    currentQueuedAt: getCurrentQueuedAt(),
     currentTickType,
   } as TickStats;
 }
@@ -238,4 +259,22 @@ export function processQueueOpts(options?: Partial<ProcessQueueOptions>) {
   rationLevelCritical = options.rationLevelCritical ?? rationLevelCritical;
   rationLevelMedium = options.rationLevelMedium ?? rationLevelMedium;
   runtimeLimit = options.runtimeLimit ?? runtimeLimit;
+}
+
+// TODO: update doc, probably just drain deferrable during "event" tick
+/**
+ * A deferrable queues a callback differently depending on the ration pressure.
+ *
+ * - `rationPressure >= LOW`   : post-phase queue
+ * - `rationPressure >= MEDIUM`: deferrables queue
+ *
+ * A deferrable function should therefore be written in anticipation that it will not execute
+ * immediately, or soon.
+ */
+export function defer(
+  fn: CallbackFunction
+) {
+  return (...args: any[]) => {
+    queue("deferrables", fn, ...args);
+  };
 }
