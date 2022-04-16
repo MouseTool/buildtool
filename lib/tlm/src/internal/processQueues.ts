@@ -120,10 +120,10 @@ const queueOps: Record<QueuableTypes, IProcessQueue> = {
  * Queues `callback` to the specified phase's queue `type`. Do not call this unless you know what
  * you're doing!
  */
-export function queue(
+export function queue<TArgs>(
   type: QueuableTypes,
-  callback: CallbackFunction,
-  ...args: any[]
+  callback: CallbackFunction<TArgs>,
+  ...args: TArgs[]
 ) {
   const queueOp = queueOps[type];
   if (queueOp) {
@@ -271,9 +271,8 @@ export function processQueueOpts(options?: Partial<ProcessQueueOptions>) {
  * A deferrable function should therefore be written in anticipation that it will not execute
  * immediately, or soon.
  */
-export function defer(
-  fn: CallbackFunction
-) {
+export function defer<TFunc extends CallbackFunction>(fn: TFunc): TFunc;
+export function defer(fn: CallbackFunction) {
   return (...args: any[]) => {
     queue("deferrables", fn, ...args);
   };

@@ -110,7 +110,10 @@ export type ProcessQueueOptions = {
  * It is similar to Node's `process.nextTick`, but has been named differently to better reflect its
  * use.
  */
-export function postPhase(callback: CallbackFunction, ...args: any[]) {
+export function postPhase<TArgs>(
+  callback: CallbackFunction<TArgs>,
+  ...args: TArgs[]
+) {
   queue("postPhase", callback, ...args);
 }
 

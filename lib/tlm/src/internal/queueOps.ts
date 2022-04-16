@@ -3,7 +3,10 @@ import DoublyLinkedList from "../../../linkedlist/src/DoublyLinkedList";
 const unpack = table.unpack;
 const osTime = os.time;
 
-export type CallbackFunction = (this: void, ...args: any[]) => void;
+export type CallbackFunction<TArgs = any> = (
+  this: void,
+  ...args: TArgs[]
+) => void;
 
 type QueueItem = {
   callback: CallbackFunction;
@@ -12,7 +15,7 @@ type QueueItem = {
 };
 
 export interface IProcessQueue {
-  enqueue(callback: CallbackFunction, ...args: any): void;
+  enqueue(callback: CallbackFunction, ...args: any[]): void;
   /**
    * @returns `true` if a callback was completed, `false` if there are no more callbacks to fulfil.
    */
@@ -26,7 +29,7 @@ export class GeneralProcessQueue implements IProcessQueue {
     this.queue = new DoublyLinkedList<QueueItem>();
   }
 
-  enqueue(callback: CallbackFunction, ...args: any) {
+  enqueue(callback: CallbackFunction, ...args: any[]) {
     this.queue.pushBack({
       callback,
       args,
@@ -72,7 +75,7 @@ export class EventProcessQueue implements IProcessQueue {
     this.queue = new DoublyLinkedList<EventQueueItem>();
   }
 
-  enqueue(callback: CallbackFunction, ...args: any) {
+  enqueue(callback: CallbackFunction, ...args: any[]) {
     this.queue.pushBack({
       callback,
       args,
