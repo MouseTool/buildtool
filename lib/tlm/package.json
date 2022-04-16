@@ -11,7 +11,7 @@
   "author": "Cassolette",
   "license": "MIT",
   "devDependencies": {
-    "tfm-tstl": "link:..\\tfm-types\\tstl\\",
+    "tfm-tstl-types": "link:..\\tfm-types\\tstl-types\\",
     "typescript": "^4.6.3",
     "typescript-to-lua": "^1.4.3"
   },
