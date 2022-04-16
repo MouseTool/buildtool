@@ -9,7 +9,7 @@
     "noImplicitAny": false,
     "noImplicitThis": true,
     "strictBindCallApply": false,
-    "types": ["tfm-tstl/types", "typescript-to-lua/language-extensions"]
+    "types": ["tfm-tstl-types/types", "typescript-to-lua/language-extensions"]
   },
   "tstl": {
     "buildMode": "default",

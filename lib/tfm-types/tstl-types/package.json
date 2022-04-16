@@ -1,12 +1,9 @@
 {
-  "name": "tfm-tstl",
+  "name": "tfm-tstl-types",
   "version": "2.1.0-dev.0",
   "description": "TypeScriptToLua environment definition for Transformice.",
   "main": "dummy.js",
   "types": "types/index.d.ts",
-  "scripts": {
-    "generate": "ts-node generate/main.ts"
-  },
   "author": "Cassolette",
   "license": "MIT",
   "devDependencies": {

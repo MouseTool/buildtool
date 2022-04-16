@@ -26,7 +26,8 @@ eventLoop = (t) => {
   let me = ++i;
 
 
-  queue("events", () => {
+  queue("events", (t3) => {
+    assert(t === t3)
     reasync(namae)().then((v) => {
       print(me, "ret", ...v);
     });
@@ -35,7 +36,7 @@ eventLoop = (t) => {
     for (let i = 0; i < 27000; i++) {
       const j = i + 1;
     }
-  });
+  }, t);
 
   print(`evtLoop ${me} (pre-loop) ms:`, os.time() - st);
   fireTick("loop");
