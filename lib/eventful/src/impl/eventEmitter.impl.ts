@@ -1,4 +1,4 @@
-import { IEventEmitter } from "./events.interfaces";
+import { IEventEmitter } from "../events.interfaces";
 
 type CallbackFunction = (this: void, ...args: any[]) => void;
 
