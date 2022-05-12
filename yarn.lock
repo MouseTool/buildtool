@@ -95,6 +95,11 @@ is-core-module@^2.8.1:
   dependencies:
     has "^1.0.3"
 
+lua-types@^2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/lua-types/-/lua-types-2.11.0.tgz#f4ecdc1eb9914a8af996f4aeb51a0e32284e5058"
+  integrity sha512-J/8qHrOjkZuPBDhnuAg0DWoaJEImqXNzgEnUigCTVrSVCcchM5Y5zpcI3aWAZPhuZlb0QKC/f3nc7VGmZmBg7w==
+
 make-error@^1.1.1:
   version "1.3.6"
   resolved "https://registry.npmjs.org/make-error/-/make-error-1.3.6.tgz"
@@ -129,9 +134,12 @@ tapable@^2.2.0:
   resolved "https://registry.npmjs.org/tapable/-/tapable-2.2.1.tgz"
   integrity sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==
 
-"tfm-tstl-types@link:lib/tfm-types/tstl-types":
-  version "0.0.0"
-  uid ""
+tfm-tstl-types@^2.1.0-rc.0:
+  version "2.1.0-rc.0"
+  resolved "https://registry.yarnpkg.com/tfm-tstl-types/-/tfm-tstl-types-2.1.0-rc.0.tgz#dbfcd17098cbd6a8b8b268753753e9731d7850da"
+  integrity sha512-/UpS265rVCIx9XD8O7xIvjzJxvpR3XcMeNzVoaCWe55+DOiIGdLp03jG0jufVtZZPPhf2EsY86C4E76bAfrLkw==
+  dependencies:
+    lua-types "^2.11.0"
 
 ts-node@^10.7.0:
   version "10.7.0"

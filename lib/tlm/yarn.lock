@@ -63,9 +63,10 @@ tapable@^2.2.0:
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.2.1.tgz#1967a73ef4060a82f12ab96af86d52fdb76eeca0"
   integrity sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==
 
-"tfm-tstl-types@link:../tfm-types/tstl-types":
-  version "0.0.0"
-  uid ""
+tfm-tstl-types@^2.1.0-dev.1:
+  version "2.1.0-dev.1"
+  resolved "https://registry.yarnpkg.com/tfm-tstl-types/-/tfm-tstl-types-2.1.0-dev.1.tgz#bc51fe17d66ad913d53931b5ab0e9d07b0427608"
+  integrity sha512-rnvPMjzUFcnoncLN0NIEYZXJ9Mk4tecBjPIdZH5sa6KHf8nfAYuhQ7E2+wjQDz47AO++ZCDeTFwcUnGqIZQ0ig==
 
 typescript-to-lua@^1.4.3:
   version "1.4.3"

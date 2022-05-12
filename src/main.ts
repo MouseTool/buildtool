@@ -100,6 +100,6 @@ if (tfm == null) {
 
   while (true) {
     wait(2);
-    eventLoop(2);
+    eventLoop(2, 3);
   }
 }
