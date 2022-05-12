@@ -160,19 +160,19 @@ ts-node@^10.7.0:
     v8-compile-cache-lib "^3.0.0"
     yn "3.1.1"
 
-typescript-to-lua@^1.4.3:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/typescript-to-lua/-/typescript-to-lua-1.4.3.tgz#251ae4bce5ab6015a6d9b0a9c2f1ab02fb576308"
-  integrity sha512-oGJO1BqXKSxdfwavfOzthelxaQVAc7ykJ4Z/BF96nAWz35nmuLyv9FOSS132TgzLmV02859ndMuTYZtiVnN6jQ==
+typescript-to-lua@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/typescript-to-lua/-/typescript-to-lua-1.4.4.tgz#795338fe2146493ed07625d0852f492c5aa84d0f"
+  integrity sha512-HqXDi0rjYANvVeOJlYAyjwCvLtpXV+RRp9GiknCJrd8+0D9G/2yZ5rO+LsDlY1y09sZ4xmufwsiZ6iNFm+o1GQ==
   dependencies:
     enhanced-resolve "^5.8.2"
     resolve "^1.15.1"
     source-map "^0.7.3"
 
-typescript@^4.6.3:
-  version "4.6.3"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-4.6.3.tgz"
-  integrity sha512-yNIatDa5iaofVozS/uQJEl3JRWLKKGJKh6Yaiv0GLGSuhpFJe7P3SbHZ8/yjAHRQwKRoA6YZqlfjXWmVzoVSMw==
+typescript@^4.6.4:
+  version "4.6.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.6.4.tgz#caa78bbc3a59e6a5c510d35703f6a09877ce45e9"
+  integrity sha512-9ia/jWHIEbo49HfjrLGfKbZSuWo9iTMwXO+Ca3pRsSpbsMbc7/IU8NKdCZVRRBafVPGnoJeFL76ZOAA84I9fEg==
 
 v8-compile-cache-lib@^3.0.0:
   version "3.0.0"

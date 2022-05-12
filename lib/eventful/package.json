@@ -1,0 +1,21 @@
+{
+  "name": "@mousetool/tstl-eventful",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index",
+  "types": "./dist/index",
+  "scripts": {
+    "build": "tstl",
+    "build:watch": "tstl --watch"
+  },
+  "author": "Cassolette",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.6.4",
+    "typescript-to-lua": "^1.4.4"
+  },
+  "files": [
+    "dist/**/*.lua",
+    "dist/**/*.d.ts"
+  ]
+}
